@@ -52,3 +52,9 @@ Comentario del gerente de sucursal: Chicos no podemos cerrar la sucursal, hablé
 ## Class Diagram solution
 
 ![](class_diagram.png)
+
+## Test Scenarios
+
+![](test_scenarios_01.png)
+
+![](test_scenarios_02.png)
