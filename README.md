@@ -48,3 +48,7 @@ Esteban: si necesitás el Miércoles 06/09 puedo venir (no tengo clases)
 No tiene comentario del gerente porque cuando amplían la disponibilidad no suele haber problemas
 Todos (escrito por cada uno): el viernes 08/09 queremos hacer un asado en lo de Jazmín
 Comentario del gerente de sucursal: Chicos no podemos cerrar la sucursal, hablémoslo
+
+## Class Diagram solution
+
+![](class_diagram.png)
