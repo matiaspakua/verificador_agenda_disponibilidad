@@ -1,3 +1,4 @@
+package com.VerificadorDisponibilidad.dominio;
 
 public class Autorizacion {
 

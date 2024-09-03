@@ -1,15 +1,15 @@
-package main.test;
+package com.VerificadorDisponibilidad;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.VerificadorDisponibilidad.dominio.Autorizacion;
+import com.VerificadorDisponibilidad.dominio.JornadaDiaDelMesExcepcional;
+import com.VerificadorDisponibilidad.servicios.TurnoACubrir;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import main.dominio.Autorizacion;
-import main.dominio.JornadaDiaDelMesExcepcional;
-import main.servicios.TurnoACubrir;
 
 public class JornadaDiaDelMesExcepcionalTest {
 

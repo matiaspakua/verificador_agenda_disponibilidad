@@ -1,13 +1,12 @@
-package main.test;
+package com.VerificadorDisponibilidad;
 
 import java.util.ArrayList;
 
+import com.VerificadorDisponibilidad.dominio.Empleado;
+import com.VerificadorDisponibilidad.dominio.Equipo;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import main.dominio.Empleado;
-import main.dominio.Equipo;
 
 public class EquipoTest {
 

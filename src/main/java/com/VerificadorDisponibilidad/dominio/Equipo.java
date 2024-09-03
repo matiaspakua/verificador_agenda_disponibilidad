@@ -1,4 +1,4 @@
-package main.dominio;
+package com.VerificadorDisponibilidad.dominio;
 
 import java.util.ArrayList;
 

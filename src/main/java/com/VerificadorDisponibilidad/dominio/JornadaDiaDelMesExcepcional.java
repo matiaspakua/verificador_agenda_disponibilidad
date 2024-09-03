@@ -1,11 +1,12 @@
-package main.dominio;
+package com.VerificadorDisponibilidad.dominio;
+
+import com.VerificadorDisponibilidad.servicios.TurnoACubrir;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import main.servicios.TurnoACubrir;
 
 public class JornadaDiaDelMesExcepcional extends Jornada implements Cloneable {
 

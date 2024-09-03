@@ -1,4 +1,9 @@
-package main.servicios;
+package com.VerificadorDisponibilidad.servicios;
+
+import com.VerificadorDisponibilidad.dominio.Empleado;
+import com.VerificadorDisponibilidad.dominio.Equipo;
+import com.VerificadorDisponibilidad.dominio.Jornada;
+import com.VerificadorDisponibilidad.dominio.JornadaDiaDelMesExcepcional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,10 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import main.dominio.Empleado;
-import main.dominio.Equipo;
-import main.dominio.Jornada;
-import main.dominio.JornadaDiaDelMesExcepcional;
 
 public class ServicioVerificadorDisponibilidad {
 	private Map<String, Empleado> listaDeEmpleados = new HashMap<String, Empleado>();
@@ -51,7 +52,7 @@ public class ServicioVerificadorDisponibilidad {
 			for (Jornada jornada : listaJornadas) {		
 				
 				if (
-						(jornada instanceof JornadaDiaDelMesExcepcional) && 
+						(jornada instanceof JornadaDiaDelMesExcepcional) &&
 						(jornada.verificarDisponiblidad(asignacionACubrir))) {
 						resultado = true;
 						break;	
