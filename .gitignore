@@ -29,3 +29,7 @@ hs_err_pid*
 .settings/
 bin/
 target/
+/.idea/encodings.xml
+/.idea/jarRepositories.xml
+/.idea/misc.xml
+/.idea/vcs.xml
