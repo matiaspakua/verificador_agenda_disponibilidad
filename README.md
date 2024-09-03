@@ -1,4 +1,4 @@
-# VerificadorDisponibilidad
+# Verificador Agenda de Disponibilidad
 Proyecto JAVA para probar TDD con JUnit
 
 ## Consiga
