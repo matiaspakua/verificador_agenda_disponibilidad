@@ -1,0 +1,16 @@
+meta {
+  name: API Info
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/api/availability/info
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: 200
+  res.body.name: Verificador Agenda de Disponibilidad API
+}

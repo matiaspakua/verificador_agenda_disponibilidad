@@ -1,0 +1,45 @@
+meta {
+  name: Check Availability - With Exception
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8080/api/availability/check
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "turnoDescripcion": "Check with Exceptions",
+    "turnoDia": "25/12/2026",
+    "empleados": [
+      {
+        "nombre": "Jazmin",
+        "equipo": null,
+        "jornadas": [
+          {
+            "tipo": "dias_puntuales",
+            "diasPuntuales": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "diasDelMes": null,
+            "autorizacionDetalle": null,
+            "autorizacionTrabaja": null
+          },
+          {
+            "tipo": "excepcional",
+            "diasPuntuales": null,
+            "diasDelMes": [],
+            "autorizacionDetalle": "Holiday vacation",
+            "autorizacionTrabaja": false
+          }
+        ]
+      }
+    ]
+  }
+}
+
+assert {
+  res.status: 200
+  res.body.availableEmployees: isArray
+}
