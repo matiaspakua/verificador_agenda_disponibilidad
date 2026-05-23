@@ -1,0 +1,51 @@
+meta {
+  name: Check Availability - Team Based
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8080/api/availability/check
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "turnoDescripcion": "Team Coverage",
+    "turnoDia": "23/05/2026",
+    "empleados": [
+      {
+        "nombre": "Greg",
+        "equipo": "TeamA",
+        "jornadas": [
+          {
+            "tipo": "dias_puntuales",
+            "diasPuntuales": ["Saturday", "Sunday"],
+            "diasDelMes": null,
+            "autorizacionDetalle": null,
+            "autorizacionTrabaja": null
+          }
+        ]
+      },
+      {
+        "nombre": "Esteban",
+        "equipo": "TeamA",
+        "jornadas": [
+          {
+            "tipo": "dias_puntuales",
+            "diasPuntuales": ["Saturday", "Sunday"],
+            "diasDelMes": null,
+            "autorizacionDetalle": null,
+            "autorizacionTrabaja": null
+          }
+        ]
+      }
+    ]
+  }
+}
+
+assert {
+  res.status: 200
+  res.body.availableEmployees: isArray
+}

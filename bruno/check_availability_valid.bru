@@ -1,0 +1,52 @@
+meta {
+  name: Check Availability - Valid Request
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/api/availability/check
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "turnoDescripcion": "Morning Shift",
+    "turnoDia": "23/05/2026",
+    "empleados": [
+      {
+        "nombre": "Juan",
+        "equipo": null,
+        "jornadas": [
+          {
+            "tipo": "dias_puntuales",
+            "diasPuntuales": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "diasDelMes": null,
+            "autorizacionDetalle": null,
+            "autorizacionTrabaja": null
+          }
+        ]
+      },
+      {
+        "nombre": "María",
+        "equipo": null,
+        "jornadas": [
+          {
+            "tipo": "dias_puntuales",
+            "diasPuntuales": ["Friday", "Saturday", "Sunday"],
+            "diasDelMes": null,
+            "autorizacionDetalle": null,
+            "autorizacionTrabaja": null
+          }
+        ]
+      }
+    ]
+  }
+}
+
+assert {
+  res.status: 200
+  res.body.totalAvailable: >= 0
+  res.body.availableEmployees: isArray
+}

@@ -1,0 +1,45 @@
+meta {
+  name: Check Availability - Month Days
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:8080/api/availability/check
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "turnoDescripcion": "Month-based Availability",
+    "turnoDia": "02/01/2026",
+    "empleados": [
+      {
+        "nombre": "Fanny",
+        "equipo": null,
+        "jornadas": [
+          {
+            "tipo": "dias_puntuales",
+            "diasPuntuales": ["Thursday"],
+            "diasDelMes": null,
+            "autorizacionDetalle": null,
+            "autorizacionTrabaja": null
+          },
+          {
+            "tipo": "dias_del_mes",
+            "diasPuntuales": null,
+            "diasDelMes": [2, 3, 5, 7, 20, 21, 22, 23, 24, 25, 26, 27, 28],
+            "autorizacionDetalle": null,
+            "autorizacionTrabaja": null
+          }
+        ]
+      }
+    ]
+  }
+}
+
+assert {
+  res.status: 200
+  res.body.availableEmployees: isArray
+}
