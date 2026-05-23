@@ -42,29 +42,44 @@ public class ServicioVerificadorDisponibilidad {
 	 * @return
 	 */
 	private List<Empleado> buscarDisponiblidadTodos(TurnoACubrir asignacionACubrir) {
-		boolean resultado = false;
 		List<Empleado> listaEmpleadosDisponibles = new ArrayList<Empleado>();
 
 		for (Empleado unEmpleado : this.listaDeEmpleados.values()) {
-
 			List<Jornada> listaJornadas = unEmpleado.consultarJornadaLaboral();
 
-			for (Jornada jornada : listaJornadas) {		
-				
-				if (
-						(jornada instanceof JornadaDiaDelMesExcepcional) &&
-						(jornada.verificarDisponiblidad(asignacionACubrir))) {
-						resultado = true;
-						break;	
+			// 1. Check if there is an exceptional jornada that applies to this date
+			JornadaDiaDelMesExcepcional excepcionAplicable = null;
+			for (Jornada jornada : listaJornadas) {
+				if (jornada instanceof JornadaDiaDelMesExcepcional) {
+					JornadaDiaDelMesExcepcional exc = (JornadaDiaDelMesExcepcional) jornada;
+					// Check if this exception applies to the day of the turn
+					String diaACubrir = asignacionACubrir.consultarDiaTurnoACubrir();
+					String[] date = diaACubrir.split("/");
+					int dayOfMonth = Integer.parseInt(date[0]);
+					if (exc.obtenerListaDiasJornada().contains(dayOfMonth)) {
+						excepcionAplicable = exc;
+						break;
 					}
-				
-				if (jornada.verificarDisponiblidad(asignacionACubrir)) {
-					resultado = true;
-				}else {
-					resultado = false;
 				}
 			}
-			if (resultado) {
+
+			boolean disponible = false;
+			if (excepcionAplicable != null) {
+				// The exception decides availability
+				disponible = excepcionAplicable.verificarDisponiblidad(asignacionACubrir);
+			} else {
+				// No exception applies, check normal availability (any normal jornada must be available)
+				for (Jornada jornada : listaJornadas) {
+					if (!(jornada instanceof JornadaDiaDelMesExcepcional)) {
+						if (jornada.verificarDisponiblidad(asignacionACubrir)) {
+							disponible = true;
+							break;
+						}
+					}
+				}
+			}
+
+			if (disponible) {
 				listaEmpleadosDisponibles.add(unEmpleado);
 			}
 		}

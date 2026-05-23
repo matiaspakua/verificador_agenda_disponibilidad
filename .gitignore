@@ -33,3 +33,9 @@ target/
 /.idea/jarRepositories.xml
 /.idea/misc.xml
 /.idea/vcs.xml
+
+# System / IDE / CLI Metadata
+.antigravitycli/
+.DS_Store
+*.exec
+

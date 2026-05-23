@@ -75,4 +75,30 @@ public class JornadaDiasPuntualesTest {
         Boolean resultado = this.jornadaDiasPuntuales.verificarDisponiblidad(turnoAVerificar);
         Assert.assertFalse(resultado);
     }
+
+    @Test
+    public void verificarNormalizacionYAcentosTest() {
+        List<String> diasMixtos = new ArrayList<String>();
+        diasMixtos.add("mi\u00e9rcoles"); // miércoles
+        diasMixtos.add("S\u00c1BADO");    // SÁBADO
+        diasMixtos.add("domingo ");      // trailing spaces
+
+        Jornada jornadaNormalizada = new JornadaDiasPuntuales();
+        boolean asignado = jornadaNormalizada.asignarDiasLaborales(diasMixtos);
+        Assert.assertTrue(asignado);
+
+        List<?> diasGuardados = jornadaNormalizada.obtenerListaDiasJornada();
+        Assert.assertTrue(diasGuardados.contains("miercoles"));
+        Assert.assertTrue(diasGuardados.contains("sabado"));
+        Assert.assertTrue(diasGuardados.contains("domingo"));
+
+        // test availability verification works seamlessly
+        TurnoACubrir turnoMiercoles = new TurnoACubrir();
+        turnoMiercoles.asignarDia("02/01/2019"); // Wednesday
+        Assert.assertTrue(jornadaNormalizada.verificarDisponiblidad(turnoMiercoles));
+
+        TurnoACubrir turnoSabado = new TurnoACubrir();
+        turnoSabado.asignarDia("05/01/2019"); // Saturday
+        Assert.assertTrue(jornadaNormalizada.verificarDisponiblidad(turnoSabado));
+    }
 }
