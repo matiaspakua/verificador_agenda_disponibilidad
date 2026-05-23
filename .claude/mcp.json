@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "maven-runner": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-maven"
+      ],
+      "env": {
+        "M2_HOME": "/usr/share/maven"
+      },
+      "description": "Enables compilation, testing, and lifecycle management of Maven-based Java projects."
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/matiasmiguez/workspace/verificador_agenda_disponibilidad"
+      ],
+      "description": "Provides secure, structured file access for reading, writing, and searching files within the project repository."
+    }
+  }
+}

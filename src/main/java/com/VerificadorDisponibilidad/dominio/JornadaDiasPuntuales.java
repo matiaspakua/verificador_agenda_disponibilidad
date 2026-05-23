@@ -22,7 +22,7 @@ public class JornadaDiasPuntuales extends Jornada implements Cloneable {
     private final ArrayList<String> listaDiasHabilitados;
     public static final String LUNES = "lunes";
     public static final String MARTES = "martes";
-    public static final String MIERCOLES = "mi�rcoles";
+    public static final String MIERCOLES = "miercoles";
     public static final String JUEVES = "jueves";
     public static final String VIERNES = "viernes";
     public static final String SABADO = "sabado";
@@ -30,7 +30,39 @@ public class JornadaDiasPuntuales extends Jornada implements Cloneable {
     private int DIAS_SEMANA = 7;
 
     /**
-     * Construye jornada laboral para d�as puntuales de la semana, desde el lunes a
+     * Normalizes a day name to a standard lowercase accent-free representation.
+     */
+    public static String normalizeDayName(String dayName) {
+        if (dayName == null) {
+            return "";
+        }
+        String lower = dayName.toLowerCase().trim();
+        if (lower.startsWith("lun")) {
+            return LUNES;
+        }
+        if (lower.startsWith("mar")) {
+            return MARTES;
+        }
+        if (lower.startsWith("mie") || lower.startsWith("mi\u00e9") || lower.startsWith("mi\uFFFD") || lower.equals("mircoles")) {
+            return MIERCOLES;
+        }
+        if (lower.startsWith("jue")) {
+            return JUEVES;
+        }
+        if (lower.startsWith("vie")) {
+            return VIERNES;
+        }
+        if (lower.startsWith("sab") || lower.startsWith("s\u00e1") || lower.startsWith("s\uFFFD")) {
+            return SABADO;
+        }
+        if (lower.startsWith("dom")) {
+            return DOMINGO;
+        }
+        return lower;
+    }
+
+    /**
+     * Construye jornada laboral para dias puntuales de la semana, desde el lunes a
      * domingo.
      */
     public JornadaDiasPuntuales() {
@@ -48,13 +80,25 @@ public class JornadaDiasPuntuales extends Jornada implements Cloneable {
     @Override
     public boolean asignarDiasLaborales(List<?> listaDiasPuntales) {
         boolean resultado = true;
-        if ((listaDiasPuntales.size() > this.DIAS_SEMANA)
-                || (!this.listaDiasHabilitados.containsAll(listaDiasPuntales))) {
+        if (listaDiasPuntales.size() > this.DIAS_SEMANA) {
             resultado = false;
         } else {
-            for (Iterator<?> iterator = listaDiasPuntales.iterator(); iterator.hasNext(); ) {
-                String dia = (String) iterator.next();
-                this.listaDias.add(dia.toString());
+            // Check if all elements, when normalized, are valid day names
+            List<String> normalizedInputs = new ArrayList<>();
+            for (Object obj : listaDiasPuntales) {
+                if (obj == null) {
+                    resultado = false;
+                    break;
+                }
+                String normalized = normalizeDayName(obj.toString());
+                if (!this.listaDiasHabilitados.contains(normalized)) {
+                    resultado = false;
+                    break;
+                }
+                normalizedInputs.add(normalized);
+            }
+            if (resultado) {
+                this.listaDias.addAll(normalizedInputs);
             }
         }
         return resultado;
@@ -77,7 +121,9 @@ public class JornadaDiasPuntuales extends Jornada implements Cloneable {
         Locale localeEspaniol = new Locale("es", "ES");
         String fechaEnEspaniol = localDate.format(DateTimeFormatter.ofPattern("EEEE", localeEspaniol));
 
-        if (this.listaDias.contains(fechaEnEspaniol)) {
+        String normalizedFecha = normalizeDayName(fechaEnEspaniol);
+
+        if (this.listaDias.contains(normalizedFecha)) {
             resultado = true;
         }
         return resultado;

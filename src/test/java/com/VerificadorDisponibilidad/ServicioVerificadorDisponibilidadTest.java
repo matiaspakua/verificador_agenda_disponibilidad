@@ -288,4 +288,53 @@ public class ServicioVerificadorDisponibilidadTest {
 
         Assert.assertEquals(empleadosDisponiblesExpected, empleadosDisponiblesActual);
     }
+
+    @Test
+    public void TC07_verificarOrdenIndependienteDeJornadas_Test() throws CloneNotSupportedException {
+        // Thursday 17th of January 2019 is a Thursday.
+        // Monday 10th of June 2019 is a Monday, Day 10.
+        
+        Empleado empA = new Empleado("empA");
+        Jornada jp = new JornadaDiasPuntuales();
+        List<String> dWeek = new ArrayList<String>();
+        dWeek.add(JornadaDiasPuntuales.JUEVES);
+        jp.asignarDiasLaborales(dWeek);
+
+        Jornada jm = new JornadaDiasDelMes();
+        List<Integer> dMonth = new ArrayList<Integer>();
+        dMonth.add(10);
+        jm.asignarDiasLaborales(dMonth);
+
+        List<Jornada> ordenA = new ArrayList<Jornada>();
+        ordenA.add(jp);
+        ordenA.add(jm);
+        empA.asignarJornadaLaboral(ordenA);
+
+        Empleado empB = new Empleado("empB");
+        List<Jornada> ordenB = new ArrayList<Jornada>();
+        ordenB.add(jm);
+        ordenB.add(jp);
+        empB.asignarJornadaLaboral(ordenB);
+
+        Map<String, Empleado> emps = new HashMap<String, Empleado>();
+        emps.put("empA", empA);
+        emps.put("empB", empB);
+
+        ServicioVerificadorDisponibilidad servicio = new ServicioVerificadorDisponibilidad();
+        servicio.agregarListaEmpleados(emps);
+
+        // Turno 17/01/2019 (Thursday) -> Both should be available
+        TurnoACubrir t1 = new TurnoACubrir();
+        t1.asignarDia("17/01/2019");
+        List<String> res1 = servicio.buscarDisponibilidadParaCubrirAsignacion(t1);
+        Assert.assertTrue(res1.contains("empA"));
+        Assert.assertTrue(res1.contains("empB"));
+
+        // Turno 10/06/2019 (Monday 10th) -> Both should be available
+        TurnoACubrir t2 = new TurnoACubrir();
+        t2.asignarDia("10/06/2019");
+        List<String> res2 = servicio.buscarDisponibilidadParaCubrirAsignacion(t2);
+        Assert.assertTrue(res2.contains("empA"));
+        Assert.assertTrue(res2.contains("empB"));
+    }
 }
