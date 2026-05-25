@@ -5,7 +5,7 @@ A modern Next.js frontend for checking employee availability for shifts.
 ## Features
 
 - ✨ Clean, minimalist UI built with Tailwind CSS
-- 🚀 Built with Next.js 14 and React 18
+- 🚀 Built with Next.js 16.2.6 and React 18
 - 📱 Fully responsive design
 - ✅ Form validation with helpful error messages
 - 🧪 Comprehensive test coverage
@@ -13,7 +13,7 @@ A modern Next.js frontend for checking employee availability for shifts.
 
 ## Prerequisites
 
-- Node.js 18.0.0 or higher
+- Node.js 20.0.0 or higher
 - npm or yarn package manager
 - Backend API running on `http://localhost:8080`
 

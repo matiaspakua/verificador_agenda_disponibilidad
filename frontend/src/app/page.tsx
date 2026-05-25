@@ -14,11 +14,11 @@ export default function Home() {
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
         <h2 className="text-lg font-semibold text-blue-900 mb-3">How to Use</h2>
         <ol className="list-decimal list-inside space-y-2 text-blue-800 text-sm">
-          <li>Enter the shift description (e.g., "Morning Shift", "Weekend Coverage")</li>
+          <li>Enter the shift description (e.g., &quot;Morning Shift&quot;, &quot;Weekend Coverage&quot;)</li>
           <li>Enter the shift date in DD/MM/YYYY format</li>
           <li>Add employees and specify their available schedules</li>
           <li>Select schedule types: specific days, weekdays, weekends, or days of the month</li>
-          <li>Click "Check Availability" to see who can work</li>
+          <li>Click &quot;Check Availability&quot; to see who can work</li>
         </ol>
       </div>
 

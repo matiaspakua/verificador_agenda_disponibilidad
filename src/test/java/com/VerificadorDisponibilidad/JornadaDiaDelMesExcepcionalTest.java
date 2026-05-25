@@ -6,9 +6,9 @@ import java.util.List;
 import com.VerificadorDisponibilidad.dominio.Autorizacion;
 import com.VerificadorDisponibilidad.dominio.JornadaDiaDelMesExcepcional;
 import com.VerificadorDisponibilidad.servicios.TurnoACubrir;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 public class JornadaDiaDelMesExcepcionalTest {
@@ -21,7 +21,7 @@ public class JornadaDiaDelMesExcepcionalTest {
 			seTrabaja);
 	List<Integer> listaDiasDelMesExpected = new ArrayList<Integer>();
 
-	@Before
+	@BeforeEach
 	public void SetUp() {
 		this.listaDiasDelMesExpected.add(6);
 		this.jornadaExcepcional.asignarDiasLaborales(this.listaDiasDelMesExpected);
@@ -31,14 +31,14 @@ public class JornadaDiaDelMesExcepcionalTest {
 	public void testAsignarDiasLaborales() {
 		this.listaDiasDelMesExpected.add(2);
 		Boolean resultado = this.jornadaExcepcional.asignarDiasLaborales(listaDiasDelMesExpected);
-		Assert.assertTrue(resultado);
+		assertTrue(resultado);
 	}
 
 	@Test
 	public void testObtenerListaDiasJornada() {
 		List<?> listaDiasDelMesActual = this.jornadaExcepcional.obtenerListaDiasJornada();
 
-		Assert.assertEquals(this.listaDiasDelMesExpected, listaDiasDelMesActual);
+		assertEquals(this.listaDiasDelMesExpected, listaDiasDelMesActual);
 
 	}
 
@@ -53,7 +53,7 @@ public class JornadaDiaDelMesExcepcionalTest {
 
 		boolean resultado = this.jornadaExcepcional.verificarDisponiblidad(turnoAVerificar);
 
-		Assert.assertFalse(resultado);
+		assertFalse(resultado);
 	}
 
 	@Test
@@ -67,7 +67,7 @@ public class JornadaDiaDelMesExcepcionalTest {
 
 		boolean resultado = this.jornadaExcepcional.verificarDisponiblidad(turnoAVerificar);
 
-		Assert.assertTrue(resultado);
+		assertTrue(resultado);
 	}
 
 }

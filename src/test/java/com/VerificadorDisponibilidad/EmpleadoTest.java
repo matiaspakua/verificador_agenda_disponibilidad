@@ -1,9 +1,9 @@
 package com.VerificadorDisponibilidad;
 
 import com.VerificadorDisponibilidad.dominio.*;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class EmpleadoTest {
 
     private Empleado margarita;
 
-    @Before
+    @BeforeEach
     public void SetUp() {
         this.margarita = new Empleado("margarita");
         this.margarita.setEquipoDeTrabajo(new Equipo("ALFA"));
@@ -21,7 +21,7 @@ public class EmpleadoTest {
     @Test
     public void creacionEmpleadoTest() {
         String expextedResult = "margarita";
-        Assert.assertEquals(this.margarita.getNombre(), expextedResult);
+        assertEquals(this.margarita.getNombre(), expextedResult);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class EmpleadoTest {
 
         Boolean resultado = this.margarita.asignarJornadaLaboral(listaJornadas);
 
-        Assert.assertTrue(resultado);
+        assertTrue(resultado);
     }
 
     @Test
@@ -63,7 +63,7 @@ public class EmpleadoTest {
 
         boolean resultado = this.margarita.asignarJornadaLaboral(listaJornadas);
 
-        Assert.assertTrue(resultado);
+        assertTrue(resultado);
     }
 
     @Test
@@ -82,12 +82,12 @@ public class EmpleadoTest {
 
         boolean resultado = this.margarita.asignarJornadaLaboral(jornadaLaboralMargarita);
 
-        Assert.assertTrue(resultado);
+        assertTrue(resultado);
 
         List<Jornada> jornadaMargaritaActual = this.margarita.consultarJornadaLaboral();
 
         for (Jornada jornada : jornadaMargaritaActual) {
-            Assert.assertEquals(jornada.obtenerListaDiasJornada(), jornadaDiasPuntualesMargarita);
+            assertEquals(jornada.obtenerListaDiasJornada(), jornadaDiasPuntualesMargarita);
         }
 
         // Assert.assertEquals(jornadaLaboralMargarita, jornadaMargaritaActual);
@@ -110,12 +110,12 @@ public class EmpleadoTest {
 
         Boolean resultado = this.margarita.asignarJornadaLaboral(listaJornadasExpected);
 
-        Assert.assertTrue(resultado);
+        assertTrue(resultado);
 
         List<Jornada> listaJornadasActual = this.margarita.consultarJornadaLaboral();
 
         for (Jornada jornada : listaJornadasActual) {
-            Assert.assertEquals(jornada.obtenerListaDiasJornada(), diasLaborales);
+            assertEquals(jornada.obtenerListaDiasJornada(), diasLaborales);
         }
     }
 
@@ -148,11 +148,11 @@ public class EmpleadoTest {
         List<Jornada> listaJornadaActual = this.margarita.consultarJornadaLaboral();
 
         for (Jornada jornada : listaJornadaActual) {
-            if (jornada.obtenerListaDiasJornada() instanceof JornadaDiasDelMes) {
-                Assert.assertEquals(jornada.obtenerListaDiasJornada(), diasLaboralesDiasDelMes);
+            if (jornada instanceof JornadaDiasDelMes) {
+                assertEquals(jornada.obtenerListaDiasJornada(), diasLaboralesDiasDelMes);
             }
-            if (jornada.obtenerListaDiasJornada() instanceof JornadaDiasPuntuales) {
-                Assert.assertEquals(jornada.obtenerListaDiasJornada(), diasLaboralesDiasPuntuales);
+            if (jornada instanceof JornadaDiasPuntuales) {
+                assertEquals(jornada.obtenerListaDiasJornada(), diasLaboralesDiasPuntuales);
             }
         }
 
@@ -161,7 +161,7 @@ public class EmpleadoTest {
     @Test
     public void consultarEquipoDeTrabajoTest() {
         Equipo equipoDeTrabajo = this.margarita.getEquipoDeTrabajo();
-        Assert.assertEquals("ALFA", equipoDeTrabajo.getNombreEquipo());
+        assertEquals("ALFA", equipoDeTrabajo.getNombreEquipo());
     }
 
 }

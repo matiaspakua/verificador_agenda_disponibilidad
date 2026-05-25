@@ -4,8 +4,8 @@ Proyecto JAVA con REST API y Frontend Next.js para verificar disponibilidad de e
 
 ## 🎯 Proyecto
 
-- **Backend**: Java Spring Boot REST API (Puerto 8080)
-- **Frontend**: Next.js 16 React Application (Puerto 3000)
+- **Backend**: Java 25 Spring Boot REST API (Puerto 8080)
+- **Frontend**: Next.js 16.2.6 React Application (Puerto 3000)
 - **Orquestación**: Docker Compose para ambos servicios
 
 ### Características
@@ -350,8 +350,8 @@ Información de la API.
 
 ## 📋 Requisitos
 
-- Node.js 18.0.0+
-- Java 17+
+- Node.js 20.0.0+
+- Java 25+
 - Docker & Docker Compose (opcional)
 
 ## 🛠️ Desarrollo
@@ -405,5 +405,5 @@ Para problemas o preguntas:
 
 ---
 
-**Versión**: 2.0.0 (con Frontend)  
+**Versión**: 3.0.0 (Java 25 + Next.js 16 + Spring Boot 3.4)  
 **Última actualización**: 2026-05-25

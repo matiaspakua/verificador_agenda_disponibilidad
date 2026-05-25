@@ -49,7 +49,7 @@ Domain → Service → Controller → DTO → Client
 
 ### 3. OpenAPI/Swagger Documentation ✅
 
-**Framework**: springdoc-openapi-ui 1.7.0
+**Framework**: springdoc-openapi-starter-webmvc-ui 2.7.0
 
 **Features**:
 - Auto-generated OpenAPI 3.0 specification
@@ -98,7 +98,7 @@ bruno run bruno/
 
 ```dockerfile
 # Build Stage
-FROM maven:3.8.4-openjdk-17-slim AS build
+FROM maven:3.9.9-eclipse-temurin-25 AS build
 WORKDIR /app
 COPY pom.xml .
 RUN mvn dependency:go-offline -B
@@ -106,7 +106,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Runtime Stage  
-FROM openjdk:17-slim
+FROM eclipse-temurin:25-jre-alpine
 WORKDIR /app
 COPY --from=build /app/target/VerificadorDisponibilidad-1.0-SNAPSHOT.jar app.jar
 EXPOSE 8080
@@ -127,7 +127,7 @@ curl http://localhost:8080/api/availability/health
 ```
 
 **Image Details**:
-- Base: OpenJDK 17-slim
+- Base: OpenJDK 25-slim
 - Size: ~500MB (optimized with multi-stage build)
 - Port: 8080
 - Healthcheck ready: Yes
@@ -159,8 +159,8 @@ curl http://localhost:8080/api/availability/health
 - ✅ JAR file created: 24MB
 - ✅ Application starts in <1 second
 - ✅ Health endpoint responds correctly
-- ✅ No test failures (0 test discovery issue with Surefire, but tests compile correctly)
-- ✅ JaCoCo code coverage configured
+- ✅ All 32 tests pass with 0 failures (migrated to JUnit 5, fixed instanceof bug)
+- ✅ JaCoCo 0.8.13 code coverage configured
 
 **Verification Commands**:
 ```bash
@@ -185,7 +185,7 @@ curl http://localhost:8080/api/availability/health
 ## 📁 Modified & Created Files
 
 **Modified**:
-- `pom.xml` - Added actuator and junit-vintage-engine dependencies
+- `pom.xml` - Spring Boot 3.4.3, springdoc 2.7.0, JUnit 5, JaCoCo 0.8.13
 
 **Created**:
 ```
@@ -364,7 +364,7 @@ management.endpoints.web.exposure.include=health,info
 ## ❓ FAQ
 
 **Q: How do I run the tests?**
-A: Tests are in `src/test/java/`. Due to Surefire/JUnit 4 compatibility, run: `mvn test -DfailIfNoTests=false`
+A: Tests are in `src/test/java/`. Run: `mvn test`
 
 **Q: How do I access Swagger UI?**
 A: Start the app and navigate to: http://localhost:8080/swagger-ui.html

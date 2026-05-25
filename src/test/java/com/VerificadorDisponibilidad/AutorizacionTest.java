@@ -1,8 +1,8 @@
 package com.VerificadorDisponibilidad;
 
 import com.VerificadorDisponibilidad.dominio.Autorizacion;
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class AutorizacionTest {
     boolean seTrabaja = false;
@@ -13,7 +13,7 @@ public class AutorizacionTest {
     public void AutorizacionAprobadaTest() {
         boolean resultado = this.autorizacionExcepcional.consultarDisponibilidadJornada();
 
-        Assert.assertFalse(resultado);
+        assertFalse(resultado);
     }
 
     @Test
@@ -21,6 +21,6 @@ public class AutorizacionTest {
         String detalleExpected = "D�a por viaje despues de la fiestas, aprobado";
         String detalleActual = this.autorizacionExcepcional.consultarDetalleAutorizacion();
 
-        Assert.assertEquals(detalleExpected, detalleActual);
+        assertEquals(detalleExpected, detalleActual);
     }
 }

@@ -3,9 +3,9 @@ package com.VerificadorDisponibilidad;
 import com.VerificadorDisponibilidad.dominio.Jornada;
 import com.VerificadorDisponibilidad.dominio.JornadaDiasPuntuales;
 import com.VerificadorDisponibilidad.servicios.TurnoACubrir;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,14 +23,14 @@ public class JornadaDiasPuntualesTest {
     private static final String SABADO = "sabado";
     private static final String DOMINGO = "domingo";
 
-    @Before
+    @BeforeEach
     public void SetUp() {
         this.diasPuntualesEsperados.add(LUNES);
         this.diasPuntualesEsperados.add(JUEVES);
         this.diasPuntualesEsperados.add(DOMINGO);
         Boolean resultado = this.jornadaDiasPuntuales.asignarDiasLaborales(this.diasPuntualesEsperados);
 
-        Assert.assertTrue(resultado);
+        assertTrue(resultado);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class JornadaDiasPuntualesTest {
 
         List<?> diasPuntualesActuales = this.jornadaDiasPuntuales.obtenerListaDiasJornada();
 
-        Assert.assertEquals(diasPuntualesEsperados, diasPuntualesActuales);
+        assertEquals(diasPuntualesEsperados, diasPuntualesActuales);
     }
 
     @Test
@@ -51,7 +51,7 @@ public class JornadaDiasPuntualesTest {
 
         Boolean resultado = this.jornadaDiasPuntuales.asignarDiasLaborales(diasPuntualesEsperados);
 
-        Assert.assertFalse(resultado);
+        assertFalse(resultado);
     }
 
     @Test
@@ -62,7 +62,7 @@ public class JornadaDiasPuntualesTest {
         this.jornadaDiasPuntuales.asignarDiasLaborales(this.diasPuntualesEsperados);
 
         Boolean resultado = this.jornadaDiasPuntuales.verificarDisponiblidad(turnoAVerificar);
-        Assert.assertTrue(resultado);
+        assertTrue(resultado);
     }
 
     @Test
@@ -73,7 +73,7 @@ public class JornadaDiasPuntualesTest {
         this.jornadaDiasPuntuales.asignarDiasLaborales(this.diasPuntualesEsperados);
 
         Boolean resultado = this.jornadaDiasPuntuales.verificarDisponiblidad(turnoAVerificar);
-        Assert.assertFalse(resultado);
+        assertFalse(resultado);
     }
 
     @Test
@@ -85,20 +85,20 @@ public class JornadaDiasPuntualesTest {
 
         Jornada jornadaNormalizada = new JornadaDiasPuntuales();
         boolean asignado = jornadaNormalizada.asignarDiasLaborales(diasMixtos);
-        Assert.assertTrue(asignado);
+        assertTrue(asignado);
 
         List<?> diasGuardados = jornadaNormalizada.obtenerListaDiasJornada();
-        Assert.assertTrue(diasGuardados.contains("miercoles"));
-        Assert.assertTrue(diasGuardados.contains("sabado"));
-        Assert.assertTrue(diasGuardados.contains("domingo"));
+        assertTrue(diasGuardados.contains("miercoles"));
+        assertTrue(diasGuardados.contains("sabado"));
+        assertTrue(diasGuardados.contains("domingo"));
 
         // test availability verification works seamlessly
         TurnoACubrir turnoMiercoles = new TurnoACubrir();
         turnoMiercoles.asignarDia("02/01/2019"); // Wednesday
-        Assert.assertTrue(jornadaNormalizada.verificarDisponiblidad(turnoMiercoles));
+        assertTrue(jornadaNormalizada.verificarDisponiblidad(turnoMiercoles));
 
         TurnoACubrir turnoSabado = new TurnoACubrir();
         turnoSabado.asignarDia("05/01/2019"); // Saturday
-        Assert.assertTrue(jornadaNormalizada.verificarDisponiblidad(turnoSabado));
+        assertTrue(jornadaNormalizada.verificarDisponiblidad(turnoSabado));
     }
 }

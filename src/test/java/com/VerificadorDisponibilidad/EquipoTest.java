@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 import com.VerificadorDisponibilidad.dominio.Empleado;
 import com.VerificadorDisponibilidad.dominio.Equipo;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class EquipoTest {
 
 	private Equipo equipo = new Equipo("ALFA");
 
-	@Before
+	@BeforeEach
 	public void SetUp() {
 
 		Empleado matias = new Empleado("matias");
@@ -31,6 +31,6 @@ public class EquipoTest {
 
 		Integer cantidadIntegrantesEnEquipo = listaEmpleadosEquipo.size();
 
-		Assert.assertEquals(cantidadIntegrantesEsperado, cantidadIntegrantesEnEquipo);
+		assertEquals(cantidadIntegrantesEsperado, cantidadIntegrantesEnEquipo);
 	}
 }
