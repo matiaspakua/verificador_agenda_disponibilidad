@@ -1,0 +1,36 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Testing
+coverage
+.nyc_output
+
+# Next.js
+/.next/
+/out/
+.env.local
+.env.*.local
+
+# Production
+/build
+/dist
+
+# Misc
+.DS_Store
+*.pem
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.eslintcache
+
+# OS
+Thumbs.db
