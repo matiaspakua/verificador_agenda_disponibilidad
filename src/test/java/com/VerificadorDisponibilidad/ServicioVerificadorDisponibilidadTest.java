@@ -3,9 +3,9 @@ package com.VerificadorDisponibilidad;
 import com.VerificadorDisponibilidad.dominio.*;
 import com.VerificadorDisponibilidad.servicios.ServicioVerificadorDisponibilidad;
 import com.VerificadorDisponibilidad.servicios.TurnoACubrir;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class ServicioVerificadorDisponibilidadTest {
     private ServicioVerificadorDisponibilidad servicioDisponiblidad = new ServicioVerificadorDisponibilidad();
     private Map<String, Empleado> listadoEmpleados = new HashMap<String, Empleado>();
 
-    @Before
+    @BeforeEach
     public void SetUp() throws CloneNotSupportedException {
 
         // se instancian empleados y cada uno con su jornada particular
@@ -141,7 +141,7 @@ public class ServicioVerificadorDisponibilidadTest {
         java.util.Collections.sort(empleadosDisponiblesExpected, Collator.getInstance());
         java.util.Collections.sort(empleadosDisponiblesActual, Collator.getInstance());
 
-        Assert.assertEquals(empleadosDisponiblesExpected, empleadosDisponiblesActual);
+        assertEquals(empleadosDisponiblesExpected, empleadosDisponiblesActual);
     }
 
     @Test
@@ -157,7 +157,7 @@ public class ServicioVerificadorDisponibilidadTest {
         List<String> empleadosDisponiblesActual = this.servicioDisponiblidad
                 .buscarDisponibilidadParaCubrirAsignacion(asignacionACubrir);
 
-        Assert.assertEquals(empleadosDisponiblesExpected, empleadosDisponiblesActual);
+        assertEquals(empleadosDisponiblesExpected, empleadosDisponiblesActual);
     }
 
     @Test
@@ -178,7 +178,7 @@ public class ServicioVerificadorDisponibilidadTest {
         java.util.Collections.sort(empleadosDisponiblesExpected, Collator.getInstance());
         java.util.Collections.sort(empleadosDisponiblesActual, Collator.getInstance());
 
-        Assert.assertEquals(empleadosDisponiblesExpected, empleadosDisponiblesActual);
+        assertEquals(empleadosDisponiblesExpected, empleadosDisponiblesActual);
     }
 
     @Test
@@ -210,7 +210,7 @@ public class ServicioVerificadorDisponibilidadTest {
         java.util.Collections.sort(empleadosDisponiblesExpected, Collator.getInstance());
         java.util.Collections.sort(empleadosDisponiblesActual, Collator.getInstance());
 
-        Assert.assertEquals(empleadosDisponiblesExpected, empleadosDisponiblesActual);
+        assertEquals(empleadosDisponiblesExpected, empleadosDisponiblesActual);
     }
 
     @Test
@@ -245,7 +245,7 @@ public class ServicioVerificadorDisponibilidadTest {
         java.util.Collections.sort(empleadosDisponiblesExpected, Collator.getInstance());
         java.util.Collections.sort(empleadosDisponiblesActual, Collator.getInstance());
 
-        Assert.assertEquals(empleadosDisponiblesExpected, empleadosDisponiblesActual);
+        assertEquals(empleadosDisponiblesExpected, empleadosDisponiblesActual);
     }
 
     @Test
@@ -286,7 +286,7 @@ public class ServicioVerificadorDisponibilidadTest {
         java.util.Collections.sort(empleadosDisponiblesExpected, Collator.getInstance());
         java.util.Collections.sort(empleadosDisponiblesActual, Collator.getInstance());
 
-        Assert.assertEquals(empleadosDisponiblesExpected, empleadosDisponiblesActual);
+        assertEquals(empleadosDisponiblesExpected, empleadosDisponiblesActual);
     }
 
     @Test
@@ -327,14 +327,14 @@ public class ServicioVerificadorDisponibilidadTest {
         TurnoACubrir t1 = new TurnoACubrir();
         t1.asignarDia("17/01/2019");
         List<String> res1 = servicio.buscarDisponibilidadParaCubrirAsignacion(t1);
-        Assert.assertTrue(res1.contains("empA"));
-        Assert.assertTrue(res1.contains("empB"));
+        assertTrue(res1.contains("empA"));
+        assertTrue(res1.contains("empB"));
 
         // Turno 10/06/2019 (Monday 10th) -> Both should be available
         TurnoACubrir t2 = new TurnoACubrir();
         t2.asignarDia("10/06/2019");
         List<String> res2 = servicio.buscarDisponibilidadParaCubrirAsignacion(t2);
-        Assert.assertTrue(res2.contains("empA"));
-        Assert.assertTrue(res2.contains("empB"));
+        assertTrue(res2.contains("empA"));
+        assertTrue(res2.contains("empB"));
     }
 }

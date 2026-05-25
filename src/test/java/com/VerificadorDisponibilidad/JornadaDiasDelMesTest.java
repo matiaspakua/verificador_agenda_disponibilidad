@@ -3,9 +3,9 @@ package com.VerificadorDisponibilidad;
 import com.VerificadorDisponibilidad.dominio.Jornada;
 import com.VerificadorDisponibilidad.dominio.JornadaDiasDelMes;
 import com.VerificadorDisponibilidad.servicios.TurnoACubrir;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ public class JornadaDiasDelMesTest {
     private Jornada jornadaDiasDelMes = new JornadaDiasDelMes();
     List<Integer> listaDiasDelMesExpected = new ArrayList<Integer>();
 
-    @Before
+    @BeforeEach
     public void SetUp() {
         this.listaDiasDelMesExpected.add(1);
         this.listaDiasDelMesExpected.add(7);
@@ -24,14 +24,14 @@ public class JornadaDiasDelMesTest {
         this.listaDiasDelMesExpected.add(28);
 
         Boolean resultado = this.jornadaDiasDelMes.asignarDiasLaborales(listaDiasDelMesExpected);
-        Assert.assertTrue(resultado);
+        assertTrue(resultado);
     }
 
     @Test
     public void asignarDiasLaboralesTest() {
         List<?> listaDiasDelMesActual = jornadaDiasDelMes.obtenerListaDiasJornada();
 
-        Assert.assertEquals(this.listaDiasDelMesExpected, listaDiasDelMesActual);
+        assertEquals(this.listaDiasDelMesExpected, listaDiasDelMesActual);
     }
 
     @Test
@@ -41,7 +41,7 @@ public class JornadaDiasDelMesTest {
         listaDiasDelMesExpected.add(DIAS_FUERA_DE_RANGO);
         Boolean resultado = this.jornadaDiasDelMes.asignarDiasLaborales(listaDiasDelMesExpected);
 
-        Assert.assertFalse(resultado);
+        assertFalse(resultado);
 
     }
 
@@ -51,7 +51,7 @@ public class JornadaDiasDelMesTest {
         turnoAVerificar.asignarDia("01/02/2019");
 
         Boolean resultado = this.jornadaDiasDelMes.verificarDisponiblidad(turnoAVerificar);
-        Assert.assertTrue(resultado);
+        assertTrue(resultado);
     }
 
     @Test
@@ -60,6 +60,6 @@ public class JornadaDiasDelMesTest {
         turnoAVerificar.asignarDia("05/02/2019");
 
         Boolean resultado = this.jornadaDiasDelMes.verificarDisponiblidad(turnoAVerificar);
-        Assert.assertFalse(resultado);
+        assertFalse(resultado);
     }
 }

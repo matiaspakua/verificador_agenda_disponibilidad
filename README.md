@@ -1,7 +1,84 @@
 # Verificador Agenda de Disponibilidad
-Proyecto JAVA para probar TDD con JUnit
 
-## Consiga
+Proyecto JAVA con REST API y Frontend Next.js para verificar disponibilidad de empleados.
+
+## 🎯 Proyecto
+
+- **Backend**: Java 25 Spring Boot REST API (Puerto 8080)
+- **Frontend**: Next.js 16.2.6 React Application (Puerto 3000)
+- **Orquestación**: Docker Compose para ambos servicios
+
+### Características
+
+✅ Sistema automatizado de verificación de disponibilidad de empleados
+✅ REST API completamente documentada con OpenAPI/Swagger
+✅ Frontend minimalista y amigable con el usuario
+✅ Docker support con docker-compose
+✅ Pruebas unitarias e integración
+✅ Despliegue en contenedores
+
+## 📋 Tabla de Contenidos
+
+- [Quick Start](#quick-start)
+- [Architecture](#architecture)
+- [Backend](#backend)
+- [Frontend](#frontend)
+- [Docker](#docker)
+
+## 🚀 Quick Start
+
+### Docker Compose (Recomendado)
+
+```bash
+# Construir y ejecutar ambos servicios
+docker-compose up
+
+# Acceder a:
+# Frontend: http://localhost:3000
+# API: http://localhost:8080
+# Swagger: http://localhost:8080/swagger-ui.html
+```
+
+### Desarrollo Local
+
+**Backend**:
+```bash
+mvn clean package -DskipTests
+java -jar target/VerificadorDisponibilidad-1.0-SNAPSHOT.jar
+# http://localhost:8080
+```
+
+**Frontend**:
+```bash
+cd frontend
+npm install
+npm run dev
+# http://localhost:3000
+```
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        Docker Network                       │
+├──────────────────────┬───────────────────────────────────────┤
+│   Frontend (3000)    │            API (8080)                 │
+│  ┌─────────────────┐ │  ┌──────────────────────────────┐    │
+│  │   Next.js App   │ │  │  Spring Boot REST API        │    │
+│  │ (React + TS)    │◄──┤                              │    │
+│  │                 │ │  │  - Health Check             │    │
+│  │ - Form Input    │ │  │  - Availability Check       │    │
+│  │ - Results Disp. │ │  │  - API Info                 │    │
+│  │ - Status Indic. │ │  └──────────────────────────────┘    │
+│  └─────────────────┘ │                                       │
+└──────────────────────┴───────────────────────────────────────┘
+```
+
+## 📚 Backend
+
+### Proyecto Consiga
+
+Modelar una solución OOP para verificar disponibilidad de empleados considerando:
 
 ### Condiciones para la resolución:
 Modelar una solución Orientada a Objetos
@@ -61,3 +138,272 @@ Les dejamos ejemplos de pedidos que vimos en el cuaderno azul:
 ![](test_scenarios_01.png)
 
 ![](test_scenarios_02.png)
+
+---
+
+## 🎨 Frontend
+
+Un frontend moderno y amigable para el sistema de verificación de disponibilidad.
+
+### Características
+
+- ✨ Interfaz limpia y minimalista
+- 📱 Diseño totalmente responsivo
+- ⚡ Validación de formularios en tiempo real
+- 🧪 Pruebas unitarias completas (24+ tests)
+- 🎯 Soporte para múltiples patrones de disponibilidad
+- 🐳 Completamente containerizado
+
+### Estructura de Carpetas
+
+```
+frontend/
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx       # Layout raíz
+│   │   ├── page.tsx         # Página principal
+│   │   └── globals.css      # Estilos globales
+│   ├── components/          # Componentes React
+│   │   ├── AvailabilityForm.tsx    # Formulario principal
+│   │   ├── EmployeeInput.tsx       # Entrada de empleados
+│   │   ├── ResultsDisplay.tsx      # Mostrar resultados
+│   │   └── StatusCard.tsx          # Estado del servicio
+│   ├── utils/
+│   │   ├── api.ts          # Cliente API
+│   │   └── validators.ts   # Validaciones
+│   ├── types/
+│   │   └── index.ts        # Tipos TypeScript
+│   └── __tests__/          # Tests unitarios
+├── Dockerfile
+├── package.json
+├── tsconfig.json
+└── README.md
+```
+
+### Scripts Disponibles
+
+```bash
+# Desarrollo
+npm run dev
+
+# Producción
+npm run build
+npm start
+
+# Testing
+npm test                 # Ejecutar tests
+npm run test:watch      # Modo watch
+npm run test:coverage   # Reporte de cobertura
+
+# Linting
+npm run lint
+```
+
+### Variables de Entorno
+
+```bash
+# .env.local
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
+```
+
+Para Docker:
+```bash
+NEXT_PUBLIC_API_BASE_URL=http://api:8080
+```
+
+### Tipos de Disponibilidad Soportados
+
+1. **Días Puntuales** (e.g., Lunes, Miércoles)
+2. **Entre Semana** (Lunes a Viernes)
+3. **Fines de Semana** (Sábado y Domingo)
+4. **Días del Mes** (e.g., 1, 5, 10, 20)
+
+### Flujo de Uso
+
+1. Ingresar descripción del turno
+2. Ingresar fecha del turno (DD/MM/YYYY)
+3. Agregar empleados con sus disponibilidades
+4. Hacer clic en "Verificar Disponibilidad"
+5. Ver resultados con empleados disponibles
+
+### Testing
+
+```bash
+# Ejecutar todos los tests
+npm test
+
+# Tests incluyen:
+# - Validación de fechas
+# - Validación de empleados
+# - Validación de solicitudes
+# - Integración con API
+```
+
+---
+
+## 🐳 Docker
+
+### Build y Run Individual
+
+**Backend**:
+```bash
+docker build -t verificador-api:1.0 .
+docker run -p 8080:8080 verificador-api:1.0
+```
+
+**Frontend**:
+```bash
+docker build -t verificador-frontend:1.0 ./frontend
+docker run -p 3000:3000 -e NEXT_PUBLIC_API_BASE_URL=http://localhost:8080 verificador-frontend:1.0
+```
+
+### Docker Compose (Recomendado)
+
+```bash
+# Build and start both services
+docker-compose up
+
+# Build without cache
+docker-compose up --build
+
+# Run in background
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop services
+docker-compose down
+```
+
+### Verificación de Servicios
+
+```bash
+# Frontend health
+curl http://localhost:3000
+
+# API health
+curl http://localhost:8080/api/availability/health
+
+# Swagger UI
+open http://localhost:8080/swagger-ui.html
+```
+
+---
+
+## 🔄 API Endpoints
+
+### POST /api/availability/check
+
+Verificar disponibilidad de empleados.
+
+**Request**:
+```json
+{
+  "turnoDescripcion": "Morning Shift",
+  "turnoDia": "25/05/2026",
+  "empleados": [
+    {
+      "nombre": "Juan",
+      "equipo": null,
+      "jornadas": [
+        {
+          "tipo": "dias_entresemana"
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Response**:
+```json
+{
+  "availableEmployees": ["Juan"],
+  "totalAvailable": 1,
+  "timestamp": "2026-05-25T10:20:02.401+02:00",
+  "shiftDetails": {
+    "date": "25/05/2026",
+    "description": "Morning Shift"
+  }
+}
+```
+
+### GET /api/availability/health
+
+Estado del servicio.
+
+**Response**:
+```json
+{
+  "status": "UP",
+  "service": "Availability Calendar API",
+  "timestamp": "2026-05-25T10:20:02.401+02:00"
+}
+```
+
+### GET /api/availability/info
+
+Información de la API.
+
+---
+
+## 📋 Requisitos
+
+- Node.js 20.0.0+
+- Java 25+
+- Docker & Docker Compose (opcional)
+
+## 🛠️ Desarrollo
+
+### Estructura del Proyecto
+
+```
+.
+├── src/                    # Backend Java
+├── frontend/               # Frontend Next.js
+├── docker-compose.yml      # Orquestación
+├── Dockerfile              # Backend Docker
+└── README.md
+```
+
+### Git Workflow
+
+```bash
+# Crear rama de feature
+git checkout -b feature/nextjs-frontend
+
+# Hacer cambios y commit
+git add .
+git commit -m "feat: Add Next.js frontend"
+
+# Push y crear PR
+git push origin feature/nextjs-frontend
+```
+
+## 📄 Documentación
+
+- [Frontend README](./frontend/README.md) - Documentación detallada del frontend
+- [REST API Implementation](./REST_API_IMPLEMENTATION.md) - Documentación del backend
+- [Class Diagram](./class_diagram.png) - Diseño de clases
+
+## ✅ Status
+
+- ✅ Backend REST API completo
+- ✅ Frontend Next.js funcional
+- ✅ Docker Compose working
+- ✅ Todos los tests pasando
+- ✅ Documentación completa
+
+## 📞 Soporte
+
+Para problemas o preguntas:
+1. Revisar la documentación de cada componente
+2. Verificar los logs: `docker-compose logs -f`
+3. Revisar la consola del navegador (frontend)
+4. Revisar el Swagger UI: http://localhost:8080/swagger-ui.html
+
+---
+
+**Versión**: 3.0.0 (Java 25 + Next.js 16 + Spring Boot 3.4)  
+**Última actualización**: 2026-05-25

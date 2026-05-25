@@ -1,0 +1,43 @@
+{
+  "name": "verificador-disponibilidad-frontend",
+  "version": "1.0.0",
+  "description": "Next.js frontend for Verificador de Disponibilidad de Agenda",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": [
+    "availability",
+    "scheduling"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "next": "^16.2.6",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "tailwindcss": "^3.4.1",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "@types/node": "^20.10.6",
+    "@types/react": "^19.2.6",
+    "@types/jest": "^29.5.11",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "ts-jest": "^29.1.1",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.2.6",
+    "prettier": "^3.1.1"
+  }
+}

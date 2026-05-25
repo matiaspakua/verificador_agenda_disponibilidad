@@ -1,16 +1,16 @@
 package com.VerificadorDisponibilidad;
 
 import com.VerificadorDisponibilidad.servicios.TurnoACubrir;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 
 public class TurnoACubrirTest {
 
     private TurnoACubrir turno = new TurnoACubrir();
 
-    @Before
+    @BeforeEach
     public void setUp() {
         turno.asignarDia("02/01/2019");
         turno.asignarDescripcion("Soporte Servidor produccion");
@@ -21,13 +21,13 @@ public class TurnoACubrirTest {
         String expectedResult = "02/01/2019";
         String diaTurnoACubrir = turno.consultarDiaTurnoACubrir();
 
-        Assert.assertEquals(expectedResult, diaTurnoACubrir);
+        assertEquals(expectedResult, diaTurnoACubrir);
     }
 
     @Test
     public void consultaDescripcionTurnoACubrirTest() {
         String expectedResult = "Soporte Servidor produccion";
         String descripcion = turno.consultarDescripcionTurnoACubrir();
-        Assert.assertEquals(expectedResult, descripcion);
+        assertEquals(expectedResult, descripcion);
     }
 }

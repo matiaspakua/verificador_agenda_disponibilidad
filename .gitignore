@@ -39,3 +39,12 @@ target/
 .DS_Store
 *.exec
 
+# Frontend - Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env.local
+frontend/.env.*.local
+frontend/coverage/
+frontend/.eslintcache
+
