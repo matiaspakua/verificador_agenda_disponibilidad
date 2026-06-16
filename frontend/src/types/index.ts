@@ -5,7 +5,7 @@ export interface Employee {
 }
 
 export interface Jornada {
-  tipo: 'dias_puntuales' | 'dias_finesemana' | 'dias_entresemana' | 'dias_del_mes'
+  tipo: 'dias_puntuales' | 'dias_finesemana' | 'dias_entresemana' | 'dias_del_mes' | 'excepcional'
   diasPuntuales?: string[] | null
   diasDelMes?: number[] | null
   autorizacionDetalle?: Authorization[] | null
@@ -44,4 +44,15 @@ export interface HealthStatus {
   status: 'UP' | 'DOWN'
   service: string
   timestamp: string
+}
+
+export type GameScene = 'title' | 'mission' | 'roster' | 'rollcall' | 'results'
+
+export interface GameState {
+  scene: GameScene
+  turnoDescripcion: string
+  turnoDia: string
+  empleados: Employee[]
+  results?: AvailabilityResponse
+  error?: string
 }
