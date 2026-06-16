@@ -69,29 +69,35 @@ export function CharacterRoster({
         className="min-h-screen w-full bg-[#1a1a2e] flex flex-col items-center justify-center gap-8 px-4 py-8"
       >
         <DialogBox showCursor={false} animate={false}>
-          Editando personaje: {editForm.nombre || '(sin nombre)'}
+          INFORMACIÓN DEL PERSONAJE
         </DialogBox>
 
-        <div className="w-full max-w-2xl flex flex-col gap-4">
-          <PixelInput
-            label="Nombre"
-            value={editForm.nombre}
-            onChange={(e) =>
-              setEditForm({ ...editForm, nombre: e.target.value })
-            }
-            error={errors[0]}
-          />
+        <div className="w-full max-w-2xl flex flex-col gap-6">
+          <div className="bg-[#16213e] pixel-border p-4 space-y-4">
+            <PixelInput
+              label="Nombre"
+              value={editForm.nombre}
+              onChange={(e) =>
+                setEditForm({ ...editForm, nombre: e.target.value })
+              }
+              error={errors[0]}
+            />
 
-          <PixelInput
-            label="Equipo (Opcional)"
-            value={editForm.equipo || ''}
-            onChange={(e) =>
-              setEditForm({
-                ...editForm,
-                equipo: e.target.value || null,
-              })
-            }
-          />
+            <PixelInput
+              label="Equipo (Opcional)"
+              value={editForm.equipo || ''}
+              onChange={(e) =>
+                setEditForm({
+                  ...editForm,
+                  equipo: e.target.value || null,
+                })
+              }
+            />
+
+            <div className="font-['VT323'] text-[#4ade80] text-xs leading-relaxed">
+              💡 Si 2+ personas están en el mismo equipo, ambas deben estar disponibles en la fecha para aparecer en resultados.
+            </div>
+          </div>
 
           <div className="flex gap-2 justify-center">
             <PixelButton
@@ -139,6 +145,11 @@ export function CharacterRoster({
                 key={idx}
                 employee={emp}
                 index={idx}
+                onEdit={() => {
+                  setEditingIdx(idx);
+                  setEditForm({ ...emp });
+                  setErrors([]);
+                }}
                 onRemove={() => handleRemoveEmployee(idx)}
                 onEditJornadas={() => setEditingJornadasIdx(idx)}
               />

@@ -7,6 +7,7 @@ import { CharacterData, getCharacterData } from '@/data/characters';
 interface CharacterCardProps {
   employee: Employee;
   onRemove: (name: string) => void;
+  onEdit: (index: number) => void;
   onEditJornadas: (index: number) => void;
   index: number;
 }
@@ -14,6 +15,7 @@ interface CharacterCardProps {
 export function CharacterCard({
   employee,
   onRemove,
+  onEdit,
   onEditJornadas,
   index,
 }: CharacterCardProps) {
@@ -91,6 +93,12 @@ export function CharacterCard({
 
         {/* Actions */}
         <div className="flex gap-2 justify-center pt-3 border-t border-[#16213e]">
+          <button
+            onClick={() => onEdit(index)}
+            className="flex-1 pixel-border bg-[#0f3460] hover:bg-[#facc15] text-[#e2e2e2] hover:text-[#1a1a2e] px-2 py-1 font-['VT323'] text-xs transition-colors"
+          >
+            EDITAR
+          </button>
           <button
             onClick={() => onEditJornadas(index)}
             className="flex-1 pixel-border bg-[#0f3460] hover:bg-[#facc15] text-[#e2e2e2] hover:text-[#1a1a2e] px-2 py-1 font-['VT323'] text-xs transition-colors"
