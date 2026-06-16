@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { Employee, Jornada } from '@/types';
 import { DialogBox } from '@/components/ui/DialogBox';
 import { PixelButton } from '@/components/ui/PixelButton';
-import { PixelInput } from '@/components/ui/PixelInput';
 
 interface JornadaEditorProps {
   employee: Employee;
