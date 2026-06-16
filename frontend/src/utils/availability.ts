@@ -158,7 +158,7 @@ export function checkAvailabilityLocal(
   }
 
   // Add teams only if ALL members are individually available
-  for (const [teamName, members] of teamMap.entries()) {
+  for (const [, members] of teamMap.entries()) {
     const allMembersAvailable = members.every((name) =>
       individuallyAvailable.has(name)
     );

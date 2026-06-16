@@ -9,9 +9,6 @@ import { EmployeeInput } from './EmployeeInput'
 import { ResultsDisplay } from './ResultsDisplay'
 
 export function AvailabilityForm() {
-  const content = 'use client'; // This was for internal structure logic, ignored in final code. 
-  // Wait, I need to just fix the file content accurately without breaking imports.
-
   const [shiftDescription, setShiftDescription] = useState('')
   const [shiftDate, setShiftDate] = useState('')
   const [employees, setEmployees] = useState<Employee[]>([
@@ -39,7 +36,7 @@ export function AvailabilityForm() {
     setEmployees(employees.filter((_, i) => i !== index))
   }
 
-  const handleUpdateEmployee = (index: number, employee: Employee) => {
+  const handleUpdateEmployee = (index: number) => (employee: Employee) => {
     const updated = [...employees]
     updated[index] = employee
     setEmployees(updated)
@@ -136,7 +133,7 @@ export function AvailabilityForm() {
                     key={idx}
                     employee={employees[idx]}
                     index={idx}
-                    onUpdate={(e) => handleUpdateEmployee(idx, e)}
+                    onUpdate={handleUpdateEmployee(idx)}
                     onRemove={() => handleRemoveEmployee(idx)}
                   />
                 ))}

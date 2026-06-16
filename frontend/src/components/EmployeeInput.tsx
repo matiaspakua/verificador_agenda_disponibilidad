@@ -5,20 +5,20 @@ import { Employee, Jornada } from '@/types'
 interface EmployeeInputProps {
   employee: Employee
   index: number
-  onUpdate: (index: number, employee: Employee) => void
+  onUpdate: (employee: Employee) => void
   onRemove: (index: number) => void
 }
 
 export function EmployeeInput({ employee, index, onUpdate, onRemove }: EmployeeInputProps) {
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onUpdate(index, {
+    onUpdate({
       ...employee,
       nombre: e.target.value,
     })
   }
 
   const handleTeamChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onUpdate(index, {
+    onUpdate({
       ...employee,
       equipo: e.target.value || null,
     })
@@ -32,7 +32,7 @@ export function EmployeeInput({ employee, index, onUpdate, onRemove }: EmployeeI
       diasDelMes: type === 'dias_del_mes' ? [1] : undefined,
     }
     updatedJornadas[jIndex] = newJornada
-    onUpdate(index, {
+    onUpdate({
       ...employee,
       jornadas: updatedJornadas,
     })
@@ -44,7 +44,7 @@ export function EmployeeInput({ employee, index, onUpdate, onRemove }: EmployeeI
       ...updatedJornadas[jIndex],
       diasPuntuales: dias,
     }
-    onUpdate(index, {
+    onUpdate({
       ...employee,
       jornadas: updatedJornadas,
     })
@@ -56,7 +56,7 @@ export function EmployeeInput({ employee, index, onUpdate, onRemove }: EmployeeI
       ...updatedJornadas[jIndex],
       diasDelMes: dias,
     }
-    onUpdate(index, {
+    onUpdate({
       ...employee,
       jornadas: updatedJornadas,
     })
