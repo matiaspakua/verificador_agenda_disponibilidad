@@ -6,15 +6,15 @@ import { CharacterData, getCharacterData } from '@/data/characters';
 
 interface CharacterCardProps {
   employee: Employee;
-  onEdit: (employee: Employee) => void;
   onRemove: (name: string) => void;
+  onEditJornadas: (index: number) => void;
   index: number;
 }
 
 export function CharacterCard({
   employee,
-  onEdit,
   onRemove,
+  onEditJornadas,
   index,
 }: CharacterCardProps) {
   const character: CharacterData = getCharacterData(employee.nombre);
@@ -92,10 +92,10 @@ export function CharacterCard({
         {/* Actions */}
         <div className="flex gap-2 justify-center pt-3 border-t border-[#16213e]">
           <button
-            onClick={() => onEdit(employee)}
-            className="flex-1 pixel-border bg-[#0f3460] hover:bg-[#4ade80] text-[#e2e2e2] hover:text-[#1a1a2e] px-2 py-1 font-['VT323'] text-xs transition-colors"
+            onClick={() => onEditJornadas(index)}
+            className="flex-1 pixel-border bg-[#0f3460] hover:bg-[#facc15] text-[#e2e2e2] hover:text-[#1a1a2e] px-2 py-1 font-['VT323'] text-xs transition-colors"
           >
-            EDITAR
+            HORARIOS
           </button>
           <button
             onClick={() => onRemove(employee.nombre)}

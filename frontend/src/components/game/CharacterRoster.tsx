@@ -7,6 +7,7 @@ import { DialogBox } from '@/components/ui/DialogBox';
 import { PixelButton } from '@/components/ui/PixelButton';
 import { PixelInput } from '@/components/ui/PixelInput';
 import { CharacterCard } from './CharacterCard';
+import { JornadaEditor } from './JornadaEditor';
 import { validateEmployee } from '@/utils/validators';
 
 interface CharacterRosterProps {
@@ -25,6 +26,7 @@ export function CharacterRoster({
   const [editingIdx, setEditingIdx] = useState<number | null>(null);
   const [editForm, setEditForm] = useState<Employee | null>(null);
   const [errors, setErrors] = useState<string[]>([]);
+  const [editingJornadasIdx, setEditingJornadasIdx] = useState<number | null>(null);
 
   const handleAddEmployee = () => {
     const newEmployee: Employee = {
@@ -37,12 +39,6 @@ export function CharacterRoster({
 
   const handleRemoveEmployee = (idx: number) => {
     onEmployeesChange(employees.filter((_, i) => i !== idx));
-  };
-
-  const handleEditEmployee = (idx: number) => {
-    setEditingIdx(idx);
-    setEditForm({ ...employees[idx] });
-    setErrors([]);
   };
 
   const handleSaveEmployee = () => {
@@ -143,8 +139,8 @@ export function CharacterRoster({
                 key={idx}
                 employee={emp}
                 index={idx}
-                onEdit={() => handleEditEmployee(idx)}
                 onRemove={() => handleRemoveEmployee(idx)}
+                onEditJornadas={() => setEditingJornadasIdx(idx)}
               />
             ))}
           </AnimatePresence>
@@ -182,6 +178,22 @@ export function CharacterRoster({
           VERIFICAR &gt;
         </PixelButton>
       </div>
+
+      {/* Jornada Editor Modal */}
+      <AnimatePresence>
+        {editingJornadasIdx !== null && employees[editingJornadasIdx] && (
+          <JornadaEditor
+            employee={employees[editingJornadasIdx]}
+            onSave={(updatedEmployee) => {
+              const updated = [...employees];
+              updated[editingJornadasIdx] = updatedEmployee;
+              onEmployeesChange(updated);
+              setEditingJornadasIdx(null);
+            }}
+            onCancel={() => setEditingJornadasIdx(null)}
+          />
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
