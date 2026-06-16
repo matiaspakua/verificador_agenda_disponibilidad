@@ -5,9 +5,9 @@ export interface CharacterData {
   archetype: string;
   description: string;
   dialogues: {
-    greeting: string;
-    available: string;
-    unavailable: string;
+    greeting: string | string[];
+    available: string | string[];
+    unavailable: string | string[];
     teamMessage?: string;
   };
   spriteColor: string;
@@ -35,10 +35,25 @@ export const FIXED_CHARACTERS: Record<string, CharacterData> = {
     archetype: 'boss',
     description: 'Líder ejecutivo que anuncia las misiones',
     dialogues: {
-      greeting: '¡Necesitamos cubrir un turno! ¿Quiénes están disponibles?',
-      available: 'Perfecto, esta persona puede ayudarnos.',
-      unavailable: 'Esta persona no está disponible.',
-      teamMessage: 'Si uno del equipo no puede, ninguno puede venir.',
+      greeting: [
+        '¡Necesitamos cubrir un turno! ¿Quiénes están disponibles?',
+        'Misión especial: necesito a los mejores para este turno.',
+        'El cliente espera. ¿Quién puede ayudar?',
+        'Tenemos una asignación urgente. ¡Reunamos al equipo!',
+      ],
+      available: [
+        'Perfecto, esta persona puede ayudarnos.',
+        '¡Excelente! Cuento con ella.',
+        'Justo lo que necesitaba.',
+        'Confirmado. Que se prepare.',
+      ],
+      unavailable: [
+        'Esta persona no está disponible.',
+        'No puede ser en esta ocasión.',
+        'Lástima, la necesitaba.',
+        'Buscaremos a alguien más.',
+      ],
+      teamMessage: 'Si uno del equipo no puede, ninguno puede venir. Es la regla.',
     },
     spriteColor: '#e94560',
     spriteEmoji: '👔',
@@ -321,6 +336,16 @@ export const CHARACTER_ARCHETYPES: ArchetypeData[] = [
 ];
 
 /**
+ * Helper to select dialogue (string or random from array)
+ */
+function selectDialogue(dialogue: string | string[]): string {
+  if (Array.isArray(dialogue)) {
+    return dialogue[Math.floor(Math.random() * dialogue.length)];
+  }
+  return dialogue;
+}
+
+/**
  * Get character data by name
  * If it's a fixed character, return its data
  * Otherwise, assign an archetype based on name hash
@@ -330,7 +355,16 @@ export function getCharacterData(name: string): CharacterData {
 
   // Check if it's a fixed character
   if (FIXED_CHARACTERS[lowerName]) {
-    return FIXED_CHARACTERS[lowerName];
+    const fixed = FIXED_CHARACTERS[lowerName];
+    return {
+      ...fixed,
+      dialogues: {
+        ...fixed.dialogues,
+        greeting: selectDialogue(fixed.dialogues.greeting),
+        available: selectDialogue(fixed.dialogues.available),
+        unavailable: selectDialogue(fixed.dialogues.unavailable),
+      },
+    };
   }
 
   // Assign archetype by hash
