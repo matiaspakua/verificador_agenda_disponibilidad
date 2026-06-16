@@ -14,11 +14,7 @@ interface ResultsSceneProps {
 export function ResultsScene({ results, onNewGame }: ResultsSceneProps) {
   const { availableEmployees, totalAvailable } = results;
 
-  const unavailableEmployees = results.shiftDetails
-    ? [] // In a real scenario, we'd track all employees vs available
-    : [];
-
-  const containerVariants = {
+  const containerVariants: any = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -28,25 +24,12 @@ export function ResultsScene({ results, onNewGame }: ResultsSceneProps) {
     },
   };
 
-  const characterVariants = {
+  const characterVariants: any = {
     hidden: { y: 50, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: { duration: 0.5 },
-    },
-  };
-
-  const celebrationVariants = {
-    initial: { scale: 0, rotate: -180 },
-    animate: {
-      scale: 1,
-      rotate: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 10,
-      },
     },
   };
 
@@ -73,9 +56,16 @@ export function ResultsScene({ results, onNewGame }: ResultsSceneProps) {
       {/* Celebration animation */}
       {totalAvailable > 0 && (
         <motion.div
-          variants={celebrationVariants}
-          initial="initial"
-          animate="animate"
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{
+            scale: 1,
+            rotate: 0,
+            transition: {
+              type: 'spring',
+              stiffness: 100,
+              damping: 10,
+            },
+          } as any}
           className="text-6xl"
         >
           🎉

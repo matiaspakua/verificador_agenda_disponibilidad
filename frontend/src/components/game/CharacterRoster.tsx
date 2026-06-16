@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Employee, Jornada } from '@/types';
+import { Employee } from '@/types';
 import { DialogBox } from '@/components/ui/DialogBox';
 import { PixelButton } from '@/components/ui/PixelButton';
 import { PixelInput } from '@/components/ui/PixelInput';
@@ -48,9 +48,9 @@ export function CharacterRoster({
   const handleSaveEmployee = () => {
     if (!editForm) return;
 
-    const error = validateEmployee(editForm);
-    if (error) {
-      setErrors([error]);
+    const validation = validateEmployee(editForm);
+    if (!validation.valid) {
+      setErrors(validation.errors);
       return;
     }
 
@@ -61,30 +61,8 @@ export function CharacterRoster({
     setEditForm(null);
   };
 
-  const handleAddJornada = () => {
-    if (!editForm) return;
-    setEditForm({
-      ...editForm,
-      jornadas: [...editForm.jornadas, { tipo: 'dias_entresemana' }],
-    });
-  };
 
-  const handleUpdateJornada = (jIdx: number, tipo: Jornada['tipo']) => {
-    if (!editForm) return;
-    const updated = [...editForm.jornadas];
-    updated[jIdx] = { tipo };
-    setEditForm({ ...editForm, jornadas: updated });
-  };
-
-  const handleRemoveJornada = (jIdx: number) => {
-    if (!editForm || editForm.jornadas.length === 1) return;
-    setEditForm({
-      ...editForm,
-      jornadas: editForm.jornadas.filter((_, i) => i !== jIdx),
-    });
-  };
-
-  const canContinue = employees.length > 0 && employees.every(validateEmployee);
+  const canContinue = employees.length > 0 && employees.every((emp) => validateEmployee(emp).valid);
 
   if (editingIdx !== null && editForm) {
     return (
